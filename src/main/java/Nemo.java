@@ -54,6 +54,16 @@ public class Nemo {
         }
     }
 
+    public void deleteTask(int index) {
+        Task task = tasks.get(index - 1);
+        tasks.remove(index - 1);
+        System.out.println("   " + divider);
+        System.out.println("   " + "Task deleted from your list by Nemo:");
+        System.out.println("      " + task.toString());
+        System.out.println("   Now you have " + tasks.size() + " tasks in your list");
+        System.out.println("   " + divider);
+    }
+
     public void addTask(Task task) {
         tasks.add(task);
         System.out.println("   " + divider);
@@ -137,7 +147,17 @@ public class Nemo {
                 } else {
                     nemo.updateTaskStatus(command, messageArray[1]);
                 }
-            } else {
+            } else if (Objects.equals(command, "delete")) {
+                if (messageArray.length < 2) {
+                    System.out.println("   " + nemo.divider);
+                    System.out.println("   Opps, please specify a task number after 'delete'");
+                    System.out.println("   " + nemo.divider);
+                } else {
+                    int index = Integer.parseInt(messageArray[1]);
+                    nemo.deleteTask(index);
+                }
+            }
+            else {
                 nemo.handleTask(message, command);
             }
         }
