@@ -40,10 +40,14 @@ public class Nemo {
                 task.markAsDone();
                 System.out.println("   " + divider);
                 System.out.println("   Nice! I've marked this task as done:");
-            } else {
+            } else if (command.equals("unmark")){
                 task.markAsUndone();
                 System.out.println("   " + divider);
                 System.out.println("   Okay! I've marked this task as not done yet:");
+            } else {
+                tasks.remove(index - 1);
+                System.out.println("   " + divider);
+                System.out.println("   Okay! I've deleted this task for you:");
             }
             System.out.println("      " + task.toString());
             System.out.println("   " + divider);
@@ -52,16 +56,6 @@ public class Nemo {
             System.out.println("   " + e.toString());
             System.out.println("   " + divider);
         }
-    }
-
-    public void deleteTask(int index) {
-        Task task = tasks.get(index - 1);
-        tasks.remove(index - 1);
-        System.out.println("   " + divider);
-        System.out.println("   " + "Task deleted from your list by Nemo:");
-        System.out.println("      " + task.toString());
-        System.out.println("   Now you have " + tasks.size() + " tasks in your list");
-        System.out.println("   " + divider);
     }
 
     public void addTask(Task task) {
@@ -139,7 +133,7 @@ public class Nemo {
                 System.out.println("   " + nemo.farewell);
                 System.out.println("   " + nemo.divider);
                 System.exit(0);
-            } else if (Objects.equals(command, "mark") || Objects.equals(command, "unmark")) {
+            } else if (Objects.equals(command, "mark") || Objects.equals(command, "unmark") || Objects.equals(command, "delete")) {
                 if (messageArray.length < 2) {
                     System.out.println("   " + nemo.divider);
                     System.out.println("   Opps, please specify a task number after '" + command + "'.");
@@ -147,17 +141,7 @@ public class Nemo {
                 } else {
                     nemo.updateTaskStatus(command, messageArray[1]);
                 }
-            } else if (Objects.equals(command, "delete")) {
-                if (messageArray.length < 2) {
-                    System.out.println("   " + nemo.divider);
-                    System.out.println("   Opps, please specify a task number after 'delete'");
-                    System.out.println("   " + nemo.divider);
-                } else {
-                    int index = Integer.parseInt(messageArray[1]);
-                    nemo.deleteTask(index);
-                }
-            }
-            else {
+            } else {
                 nemo.handleTask(message, command);
             }
         }
