@@ -10,4 +10,8 @@ deadline sleep /by 11pm
 mark 4
 unmark 3
 list
+delete
+mark
+mark 0
+deadline say hi
 bye
