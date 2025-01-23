@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Nemo {
@@ -8,6 +7,14 @@ public class Nemo {
     String question = "What can I do for you?";
     String farewell = "Bye Bye, see you soon!";
     ArrayList<Task> tasks = new ArrayList<>();
+
+    public enum TaskCommand {
+        MARK, UNMARK, TODO, DEADLINE, EVENT, LIST, BYE, DELETE
+    }
+
+    public enum TaskStatus {
+        DONE, NOT_DONE
+    }
 
     public void List() {
         System.out.println("   " + divider);
@@ -22,7 +29,7 @@ public class Nemo {
         System.out.println("   " + divider);
     }
 
-    public void updateTaskStatus(String command, String indexStr) {
+    public void updateTaskStatus(TaskCommand command, String indexStr) {
         try {
             int index;
             try {
@@ -36,11 +43,11 @@ public class Nemo {
             }
 
             Task task = tasks.get(index - 1);
-            if (command.equals("mark")) {
+            if (command == TaskCommand.MARK) {
                 task.markAsDone();
                 System.out.println("   " + divider);
                 System.out.println("   Nice! I've marked this task as done:");
-            } else if (command.equals("unmark")){
+            } else if (command == TaskCommand.UNMARK){
                 task.markAsUndone();
                 System.out.println("   " + divider);
                 System.out.println("   Okay! I've marked this task as not done yet:");
@@ -67,10 +74,10 @@ public class Nemo {
         System.out.println("   " + divider);
     }
 
-    public void handleTask(String message, String command) {
+    public void handleTask(String message, TaskCommand command) {
         try {
             switch (command) {
-                case "todo" -> {
+                case TODO -> {
                     String description = message.substring(4).trim();
                     if (description.isEmpty()) {
                         throw new NemoException("Opps :( Todo cannot be empty!");
@@ -78,7 +85,7 @@ public class Nemo {
                     ToDo todo = new ToDo(description);
                     addTask(todo);
                 }
-                case "deadline" -> {
+                case DEADLINE -> {
                     if (!message.contains("/by")) {
                         throw new NemoException("Opps :( Deadline needs to include '/by'!");
                     }
@@ -90,7 +97,7 @@ public class Nemo {
                     Deadline deadline = new Deadline(description, by);
                     addTask(deadline);
                 }
-                case "event" -> {
+                case EVENT -> {
                     if (!message.contains("/from") || !message.contains("/to")) {
                         throw new NemoException("Opps :( Event needs to include '/from' and '/to'!");
                     }
@@ -125,24 +132,35 @@ public class Nemo {
         while (scanner.hasNextLine()) {
             String message = scanner.nextLine();
             String[] messageArray = message.split(" ");
-            String command = messageArray[0];
-            if (Objects.equals(message, "list")) {
-                nemo.List();
-            } else if (Objects.equals(message, "bye")) {
-                System.out.println("   " + nemo.divider);
-                System.out.println("   " + nemo.farewell);
-                System.out.println("   " + nemo.divider);
-                System.exit(0);
-            } else if (Objects.equals(command, "mark") || Objects.equals(command, "unmark") || Objects.equals(command, "delete")) {
-                if (messageArray.length < 2) {
-                    System.out.println("   " + nemo.divider);
-                    System.out.println("   Opps, please specify a task number after '" + command + "'.");
-                    System.out.println("   " + nemo.divider);
-                } else {
-                    nemo.updateTaskStatus(command, messageArray[1]);
+            String commandStr = messageArray[0].toUpperCase();
+
+            try {
+                TaskCommand command = TaskCommand.valueOf(commandStr);
+                switch (command) {
+                    case LIST -> nemo.List();
+                    case BYE -> {
+                        System.out.println("   " + nemo.divider);
+                        System.out.println("   " + nemo.farewell);
+                        System.out.println("   " + nemo.divider);
+                        System.exit(0);
+                    }
+                    case MARK, UNMARK, DELETE -> {
+                        if (messageArray.length < 2) {
+                            throw new NemoException("Opps, please specify a task number after '" + commandStr.toLowerCase() + "'.");
+                        }
+                        nemo.updateTaskStatus(command, messageArray[1]);
+                    }
+                    case TODO, DEADLINE, EVENT -> nemo.handleTask(message, command);
+                    default -> throw new NemoException("Unknown command: " + commandStr.toLowerCase());
                 }
-            } else {
-                nemo.handleTask(message, command);
+            } catch (IllegalArgumentException e) {
+                System.out.println("   " + nemo.divider);
+                System.out.println("   Unknown command! Try typing list/bye/mark/unmark/todo/event/deadline.");
+                System.out.println("   " + nemo.divider);
+            } catch (NemoException e) {
+                System.out.println("   " + nemo.divider);
+                System.out.println("   " + e.toString());
+                System.out.println("   " + nemo.divider);
             }
         }
     }

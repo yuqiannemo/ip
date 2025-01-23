@@ -1,22 +1,22 @@
 public class Task {
     protected String description;
-    protected boolean isDone;
+    protected Nemo.TaskStatus status;
 
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
+        this.status = Nemo.TaskStatus.NOT_DONE;
     }
 
     public String getStatusIcon() {
-        return (isDone ? "[X]" : "[ ]"); // mark done task with X
+        return (status == Nemo.TaskStatus.DONE ? "[X]" : "[ ]"); // mark done task with X
     }
 
     public void markAsDone() {
-        isDone = true;
+        status = Nemo.TaskStatus.DONE;
     }
 
     public void markAsUndone() {
-        isDone = false;
+        status = Nemo.TaskStatus.NOT_DONE;
     }
 
     public String toString() {
