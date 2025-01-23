@@ -1,7 +1,66 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+   ____________________________________________________________
+   Hello I am Nemo, a very friendly and smart fish yay :)
+   What can I do for you?
+   ____________________________________________________________
+   ____________________________________________________________
+   Got it! Task added to your list by Nemo:
+      [T][ ] borrow book
+   Now you have 1 tasks in your list
+   ____________________________________________________________
+   ____________________________________________________________
+   Got it! Task added to your list by Nemo:
+      [D][ ] return book (by: Sunday)
+   Now you have 2 tasks in your list
+   ____________________________________________________________
+   ____________________________________________________________
+   Got it! Task added to your list by Nemo:
+      [E][ ] project meeting (from: Mon 2pm to: 4pm)
+   Now you have 3 tasks in your list
+   ____________________________________________________________
+   ____________________________________________________________
+   1. [T][ ] borrow book
+   2. [D][ ] return book (by: Sunday)
+   3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+   ____________________________________________________________
+   ____________________________________________________________
+   Got it! Task added to your list by Nemo:
+      [T][ ] CS2101 oral presentation preparation
+   Now you have 4 tasks in your list
+   ____________________________________________________________
+   ____________________________________________________________
+   Nice! I've marked this task as done:
+      [T][X] borrow book
+   ____________________________________________________________
+   ____________________________________________________________
+   1. [T][X] borrow book
+   2. [D][ ] return book (by: Sunday)
+   3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+   4. [T][ ] CS2101 oral presentation preparation
+   ____________________________________________________________
+   ____________________________________________________________
+   Nice! I've marked this task as done:
+      [E][X] project meeting (from: Mon 2pm to: 4pm)
+   ____________________________________________________________
+   ____________________________________________________________
+   Got it! Task added to your list by Nemo:
+      [D][ ] sleep (by: 11pm)
+   Now you have 5 tasks in your list
+   ____________________________________________________________
+   ____________________________________________________________
+   Nice! I've marked this task as done:
+      [T][X] CS2101 oral presentation preparation
+   ____________________________________________________________
+   ____________________________________________________________
+   Okay! I've marked this task as not done yet:
+      [E][ ] project meeting (from: Mon 2pm to: 4pm)
+   ____________________________________________________________
+   ____________________________________________________________
+   1. [T][X] borrow book
+   2. [D][ ] return book (by: Sunday)
+   3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+   4. [T][X] CS2101 oral presentation preparation
+   5. [D][ ] sleep (by: 11pm)
+   ____________________________________________________________
+   ____________________________________________________________
+   Bye Bye, see you soon!
+   ____________________________________________________________
