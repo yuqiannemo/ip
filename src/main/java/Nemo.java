@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Nemo {
     String divider = "_".repeat(60);
-    String greeting = "Hello I am Nemo, a very friendly and smart fish yay :)";
+    String greeting = "Hello I am Nemo \uD83D\uDC20\uD83C\uDF89, a very friendly and smart fish yay :)";
     String question = "What can I do for you?";
     String farewell = "Bye Bye, see you soon!";
     ArrayList<Task> tasks = new ArrayList<>();
