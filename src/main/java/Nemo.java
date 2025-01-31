@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,6 +8,94 @@ public class Nemo {
     String question = "What can I do for you?";
     String farewell = "Bye Bye, see you soon!";
     ArrayList<Task> tasks = new ArrayList<>();
+    private static final String TASKS_FILE = "tasks.txt";
+
+    public Nemo() {
+        loadTaskFromFile();
+    }
+
+    public void loadTaskFromFile() {
+        File file = new File(TASKS_FILE);
+        // System.out.println("Loading tasks from " + file.getPath());
+
+        if (!file.exists()) {
+            System.out.println("Task file does not exist, creating a new one.");
+            try {
+                if (file.createNewFile()) {
+                    System.out.println("Successfully created task file: " + file.getPath());
+                } else {
+                    System.out.println("Failed to create task file.");
+                }
+            } catch (IOException e) {
+                System.out.println("Error creating task file: " + e.getMessage());
+            }
+        }
+
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                Task task = parseTask(line);
+                if (task != null) {
+                    tasks.add(task);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private Task parseTask(String line) {
+        if (!line.startsWith("[T]") && !line.startsWith("[E]") && !line.startsWith("[D]")) {
+            System.out.println("Unrecognized task format: " + line);
+            return null;
+        }
+
+        // Task Status
+        int statusStart = line.indexOf("[", 3);
+        int statusEnd = line.indexOf("]", statusStart);
+        if (statusStart == -1 || statusEnd == -1) {
+            System.out.println("Invalid task format: " + line);
+            return null;
+        }
+
+        String status = line.substring(statusStart + 1, statusEnd);
+        boolean isDone = status.equals("X");
+
+        // Task content
+        String taskContent = line.substring(statusEnd + 2).trim();
+
+        Task task = null;
+        if (line.startsWith("[T]")) {
+            task = new ToDo(taskContent);
+        } else if (line.startsWith("[E]")) {
+            // Event
+            int fromIndex = taskContent.indexOf("(from: ");
+            int toIndex = taskContent.indexOf(" to: ");
+            int endIndex = taskContent.indexOf(")");
+            if (fromIndex != -1 && toIndex != -1 && endIndex != -1) {
+                String description = taskContent.substring(0, fromIndex).trim();
+                String from = taskContent.substring(fromIndex + 7, toIndex).trim();
+                String to = taskContent.substring(toIndex + 4, endIndex).trim();
+                task = new Event(description, from, to);
+            }
+        } else if (line.startsWith("[D]")) {
+            // Deadline
+            int byIndex = taskContent.indexOf("(by: ");
+            int endIndex = taskContent.indexOf(")");
+            if (byIndex != -1 && endIndex != -1) {
+                String description = taskContent.substring(0, byIndex).trim();
+                String by = taskContent.substring(byIndex + 5, endIndex).trim();
+                task = new Deadline(description, by);
+            }
+        }
+
+        // Mark As Done
+        if (task != null && isDone) {
+            task.markAsDone();
+        }
+
+        return task;
+    }
 
     public enum TaskCommand {
         MARK, UNMARK, TODO, DEADLINE, EVENT, LIST, BYE, DELETE
@@ -27,6 +116,21 @@ public class Nemo {
             count++;
         }
         System.out.println("   " + divider);
+    }
+
+    public void saveTaskToFile() {
+        try {
+            File file = new File(TASKS_FILE);
+
+            FileWriter writer = new FileWriter(TASKS_FILE);
+
+            for (Task task : tasks) {
+                writer.write(task.toString() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void updateTaskStatus(TaskCommand command, String indexStr) {
@@ -58,6 +162,7 @@ public class Nemo {
             }
             System.out.println("      " + task.toString());
             System.out.println("   " + divider);
+            saveTaskToFile();
         } catch (NemoException e) {
             System.out.println("   " + divider);
             System.out.println("   " + e.toString());
@@ -72,6 +177,7 @@ public class Nemo {
         System.out.println("      " + task.toString());
         System.out.println("   Now you have " + tasks.size() + " tasks in your list");
         System.out.println("   " + divider);
+        saveTaskToFile();
     }
 
     public void handleTask(String message, TaskCommand command) {
