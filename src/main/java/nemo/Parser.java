@@ -6,6 +6,7 @@ import nemo.command.AddTodoCommand;
 import nemo.command.Command;
 import nemo.command.DeleteCommand;
 import nemo.command.ExitCommand;
+import nemo.command.FindCommand;
 import nemo.command.ListCommand;
 import nemo.command.MarkCommand;
 import nemo.command.UnmarkCommand;
