@@ -202,37 +202,59 @@ public class Nemo {
                     if (!message.contains("/by")) {
                         throw new NemoException("Opps :( Deadline needs to include '/by'!");
                     }
-                    String by = message.substring(message.indexOf("/by") + 4).trim();
-                    String description = message.substring(9, message.indexOf(" /by")).trim();
-                    System.out.println(" here hi  " + divider);
+
+                    String[] parts = message.split("/by", 2);
+                    if (parts.length < 2 || parts[0].trim().length() < 9) {
+                        throw new NemoException("Opps :( Command needs to be 'deadline description /by yyyy-mm-dd' format!");
+                    }
+
+                    String description = parts[0].substring(9).trim();
+                    String by = parts[1].trim();
+
+                    if (description.isEmpty() || by.isEmpty()) {
+                        throw new NemoException("Opps :( Deadline description or date cannot be empty!");
+                    }
+
                     try {
                         LocalDate date = LocalDate.parse(by);
-                        if (description.isEmpty() || by.isEmpty()) {
-                            throw new NemoException("Deadline description or date cannot be empty!");
-                        }
                         Deadline deadline = new Deadline(description, date);
                         addTask(deadline);
                     } catch (DateTimeParseException e) {
-                        System.out.println("Opps :( Deadline date is in the wrong format! Use yyyy-mm-dd instead :)");
+                        throw new NemoException("Opps :( Deadline date is in the wrong format! Use yyyy-mm-dd instead :)");
                     }
                 }
                 case EVENT -> {
                     if (!message.contains("/from") || !message.contains("/to")) {
                         throw new NemoException("Opps :( Event needs to include '/from' and '/to'!");
                     }
-                    String from = message.substring(message.indexOf("/from") + 6, message.indexOf(" /to")).trim();
-                    String to = message.substring(message.indexOf("/to") + 4).trim();
-                    String description = message.substring(6, message.indexOf(" /from")).trim();
-                    LocalDate dateFrom = LocalDate.parse(from);
-                    LocalDate dateTo = LocalDate.parse(to);
-                    if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
-                        throw new NemoException("Opps :( Event description, from, or to fields cannot be empty!");
+
+                    String[] parts = message.split("/from", 2);
+                    if (parts.length < 2 || parts[0].trim().length() < 6) {
+                        throw new NemoException("Opps :( Command needs to be 'event description /from yyyy-mm-dd /to yyyy-mm-dd' format!");
                     }
-                    Event event = new Event(description, dateFrom, dateTo);
-                    addTask(event);
-                }
-                default -> {
-                    throw new NemoException("Sorry, Nemo does not know...");
+
+                    String description = parts[0].substring(6).trim();
+                    String[] dateParts = parts[1].split("/to", 2);
+
+                    if (dateParts.length < 2) {
+                        throw new NemoException("Opps :( Event needs to have both '/from' and '/to' dates!");
+                    }
+
+                    String from = dateParts[0].trim();
+                    String to = dateParts[1].trim();
+
+                    if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
+                        throw new NemoException("Opps :( Event description, from, or to date cannot be empty!");
+                    }
+
+                    try {
+                        LocalDate dateFrom = LocalDate.parse(from);
+                        LocalDate dateTo = LocalDate.parse(to);
+                        Event event = new Event(description, dateFrom, dateTo);
+                        addTask(event);
+                    } catch (DateTimeParseException e) {
+                        throw new NemoException("Opps :( Event date is in the wrong format! Use yyyy-mm-dd instead :)");
+                    }
                 }
             }
         } catch (NemoException e) {
@@ -241,6 +263,7 @@ public class Nemo {
             System.out.println("   " + divider);
         }
     }
+
 
     public static void main(String[] args) {
         Nemo nemo = new Nemo();
