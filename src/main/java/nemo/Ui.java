@@ -5,7 +5,7 @@ import nemo.task.TaskList;
 
 public class Ui {
     private static final String DIVIDER = "_".repeat(60);
-    private static final String GREETING = "Hello I am nemo.Nemo \uD83D\uDC20\uD83C\uDF89, a very friendly and smart fish yay :)";
+    private static final String GREETING = "Hello I am Nemo \uD83D\uDC20\uD83C\uDF89, a very friendly and smart fish yay :)";
     private static final String QUESTION = "What can I do for you?";
     private static final String FAREWELL = "Bye Bye, see you soon!";
 
@@ -49,7 +49,7 @@ public class Ui {
 
     public void showTaskAdded(Task task, int size) {
         System.out.println("   " + DIVIDER);
-        System.out.println("   Got it! nemo.task.Task added to your list by nemo.Nemo:");
+        System.out.println("   Got it! Task added to your list by Nemo:");
         System.out.println("      " + task.toString());
         System.out.println("   Now you have " + size + " tasks in your list");
         System.out.println("   " + DIVIDER);
