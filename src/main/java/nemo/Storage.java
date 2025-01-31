@@ -49,7 +49,7 @@ public class Storage {
         return tasks;
     }
 
-    private Task parseTask(String line) throws NemoException {
+    Task parseTask(String line) throws NemoException {
         if (!line.startsWith("[T]") && !line.startsWith("[E]") && !line.startsWith("[D]")) {
             throw new NemoException("Unrecognized task format: " + line);
         }

@@ -12,6 +12,10 @@ public class Task {
         this.status = TaskStatus.NOT_DONE;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public String getStatusIcon() {
         return (status == TaskStatus.DONE ? "[X]" : "[ ]"); // mark done task with X
     }
