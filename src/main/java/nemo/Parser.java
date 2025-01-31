@@ -24,6 +24,8 @@ public class Parser {
                 return new AddDeadlineCommand(message);
             case "EVENT":
                 return new AddEventCommand(message);
+            case "FIND":
+                return new FindCommand(messageArray[1]);
             default:
                 throw new NemoException("Unknown command: " + commandStr.toLowerCase());
         }

@@ -47,6 +47,19 @@ public class Ui {
         System.out.println("   " + DIVIDER);
     }
 
+    public void showTaskFound(TaskList tasks) {
+        System.out.println("   " + DIVIDER);
+        if (tasks.isEmpty()) {
+            System.out.println("   No tasks found, take a rest and come back later :)");
+        }
+        int count = 1;
+        for (Task task : tasks.getTasks()) {
+            System.out.println("   " + count + ". " + task.toString());
+            count++;
+        }
+        System.out.println("   " + DIVIDER);
+    }
+
     public void showTaskAdded(Task task, int size) {
         System.out.println("   " + DIVIDER);
         System.out.println("   Got it! Task added to your list by Nemo:");
