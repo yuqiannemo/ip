@@ -1,22 +1,25 @@
 public class Task {
     protected String description;
-    protected Nemo.TaskStatus status;
+    protected TaskStatus status;
+    protected enum TaskStatus {
+        DONE, NOT_DONE
+    }
 
     public Task(String description) {
         this.description = description;
-        this.status = Nemo.TaskStatus.NOT_DONE;
+        this.status = TaskStatus.NOT_DONE;
     }
 
     public String getStatusIcon() {
-        return (status == Nemo.TaskStatus.DONE ? "[X]" : "[ ]"); // mark done task with X
+        return (status == TaskStatus.DONE ? "[X]" : "[ ]"); // mark done task with X
     }
 
     public void markAsDone() {
-        status = Nemo.TaskStatus.DONE;
+        status = TaskStatus.DONE;
     }
 
     public void markAsUndone() {
-        status = Nemo.TaskStatus.NOT_DONE;
+        status = TaskStatus.NOT_DONE;
     }
 
     public String toString() {
