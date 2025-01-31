@@ -1,4 +1,8 @@
-import java.io.IOException;
+package nemo;
+
+import nemo.command.Command;
+import nemo.task.TaskList;
+
 import java.util.Scanner;
 
 public class Nemo {

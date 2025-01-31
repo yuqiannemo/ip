@@ -1,3 +1,5 @@
+package nemo.task;
+
 public class Task {
     protected String description;
     protected TaskStatus status;
