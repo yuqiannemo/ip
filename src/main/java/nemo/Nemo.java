@@ -1,9 +1,10 @@
 package nemo;
 
+import java.util.Scanner;
+
 import nemo.command.Command;
 import nemo.task.TaskList;
 
-import java.util.Scanner;
 
 /**
  * The main class for the Nemo application.

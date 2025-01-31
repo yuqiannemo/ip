@@ -1,8 +1,8 @@
 package nemo.task;
 
-import nemo.NemoException;
-
 import java.util.ArrayList;
+
+import nemo.NemoException;
 
 /**
  * Manages a list of tasks.

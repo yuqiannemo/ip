@@ -1,17 +1,14 @@
 package nemo.command;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import nemo.NemoException;
 import nemo.Storage;
 import nemo.Ui;
 import nemo.task.Event;
 import nemo.task.TaskList;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-
-/**
- * Represents a command to add an event task to the task list.
- */
 public class AddEventCommand extends Command {
     /** The description of the event task. */
     private String description;
