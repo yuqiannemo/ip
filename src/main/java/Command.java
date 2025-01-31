@@ -1,4 +1,7 @@
-package PACKAGE_NAME;
+abstract class Command {
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws NemoException;
 
-public class Command {
+    public boolean isExit() {
+        return false;
+    }
 }
