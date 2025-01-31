@@ -11,13 +11,30 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Manages the loading and saving of tasks to a file.
+ * This class handles reading tasks from a file and writing tasks back to the file.
+ */
 public class Storage {
+    /** The file path where tasks are stored. */
     private String filePath;
 
+    /**
+     * Constructs a new Storage instance with the specified file path.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file.
+     * If the file does not exist, it creates a new file.
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws NemoException If an error occurs while loading tasks.
+     */
     public ArrayList<Task> load() throws NemoException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -49,6 +66,13 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Parses a task from a string representation.
+     *
+     * @param line The string representation of the task.
+     * @return The parsed task.
+     * @throws NemoException If the task format is invalid.
+     */
     Task parseTask(String line) throws NemoException {
         if (!line.startsWith("[T]") && !line.startsWith("[E]") && !line.startsWith("[D]")) {
             throw new NemoException("Unrecognized task format: " + line);
@@ -98,6 +122,12 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Saves tasks to the file.
+     *
+     * @param tasks The list of tasks to be saved.
+     * @throws NemoException If an error occurs while saving tasks.
+     */
     public void save(TaskList tasks) throws NemoException {
         try (FileWriter writer = new FileWriter(filePath)) {
             for (Task task : tasks.getTasks()) {

@@ -1,7 +1,13 @@
 package nemo.task;
 
-public class ToDo extends Task{
-
+/**
+ * Represents a to-do task.
+ */
+public class ToDo extends Task {
+    /**
+     * Constructs a new ToDo task.
+     * @param description The task description.
+     */
     public ToDo(String description) {
         super(description);
     }
