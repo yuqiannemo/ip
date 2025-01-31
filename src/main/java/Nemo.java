@@ -1,4 +1,7 @@
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -76,7 +79,9 @@ public class Nemo {
                 String description = taskContent.substring(0, fromIndex).trim();
                 String from = taskContent.substring(fromIndex + 7, toIndex).trim();
                 String to = taskContent.substring(toIndex + 4, endIndex).trim();
-                task = new Event(description, from, to);
+                LocalDate dateFrom = LocalDate.parse(from, DateTimeFormatter.ofPattern("MMM d yyyy"));
+                LocalDate dateTo = LocalDate.parse(to, DateTimeFormatter.ofPattern("MMM d yyyy"));
+                task = new Event(description, dateFrom, dateTo);
             }
         } else if (line.startsWith("[D]")) {
             // Deadline
@@ -85,7 +90,8 @@ public class Nemo {
             if (byIndex != -1 && endIndex != -1) {
                 String description = taskContent.substring(0, byIndex).trim();
                 String by = taskContent.substring(byIndex + 5, endIndex).trim();
-                task = new Deadline(description, by);
+                LocalDate date = LocalDate.parse(by, DateTimeFormatter.ofPattern("MMM d yyyy"));
+                task = new Deadline(description, date);
             }
         }
 
@@ -157,6 +163,7 @@ public class Nemo {
                 System.out.println("   Okay! I've marked this task as not done yet:");
             } else {
                 tasks.remove(index - 1);
+                saveTaskToFile();
                 System.out.println("   " + divider);
                 System.out.println("   Okay! I've deleted this task for you:");
             }
@@ -197,11 +204,17 @@ public class Nemo {
                     }
                     String by = message.substring(message.indexOf("/by") + 4).trim();
                     String description = message.substring(9, message.indexOf(" /by")).trim();
-                    if (description.isEmpty() || by.isEmpty()) {
-                        throw new NemoException("Deadline description or date cannot be empty!");
+                    System.out.println(" here hi  " + divider);
+                    try {
+                        LocalDate date = LocalDate.parse(by);
+                        if (description.isEmpty() || by.isEmpty()) {
+                            throw new NemoException("Deadline description or date cannot be empty!");
+                        }
+                        Deadline deadline = new Deadline(description, date);
+                        addTask(deadline);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Opps :( Deadline date is in the wrong format! Use yyyy-mm-dd instead :)");
                     }
-                    Deadline deadline = new Deadline(description, by);
-                    addTask(deadline);
                 }
                 case EVENT -> {
                     if (!message.contains("/from") || !message.contains("/to")) {
@@ -210,10 +223,12 @@ public class Nemo {
                     String from = message.substring(message.indexOf("/from") + 6, message.indexOf(" /to")).trim();
                     String to = message.substring(message.indexOf("/to") + 4).trim();
                     String description = message.substring(6, message.indexOf(" /from")).trim();
+                    LocalDate dateFrom = LocalDate.parse(from);
+                    LocalDate dateTo = LocalDate.parse(to);
                     if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
                         throw new NemoException("Opps :( Event description, from, or to fields cannot be empty!");
                     }
-                    Event event = new Event(description, from, to);
+                    Event event = new Event(description, dateFrom, dateTo);
                     addTask(event);
                 }
                 default -> {
