@@ -1,3 +1,7 @@
+package nemo.task;
+
+import nemo.NemoException;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -25,14 +29,14 @@ public class TaskList {
 
     public void delete(int index) throws NemoException {
         if (index < 0 || index >= tasks.size()) {
-            throw new NemoException("Task number " + (index + 1) + " does not exist in the list...");
+            throw new NemoException("nemo.task.Task number " + (index + 1) + " does not exist in the list...");
         }
         tasks.remove(index);
     }
 
     public Task get(int index) throws NemoException {
         if (index < 0 || index >= tasks.size()) {
-            throw new NemoException("Task number " + (index + 1) + " does not exist in the list...");
+            throw new NemoException("nemo.task.Task number " + (index + 1) + " does not exist in the list...");
         }
         return tasks.get(index);
     }

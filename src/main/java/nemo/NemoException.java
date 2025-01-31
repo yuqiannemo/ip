@@ -1,3 +1,5 @@
+package nemo;
+
 public class NemoException extends Exception {
     public NemoException(String message) {
         super(message);
