@@ -3,6 +3,7 @@ package nemo.task;
 public class Task {
     protected String description;
     protected TaskStatus status;
+
     protected enum TaskStatus {
         DONE, NOT_DONE
     }

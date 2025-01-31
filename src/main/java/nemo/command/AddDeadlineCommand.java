@@ -1,13 +1,13 @@
 package nemo.command;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import nemo.NemoException;
 import nemo.Storage;
 import nemo.Ui;
 import nemo.task.Deadline;
 import nemo.task.TaskList;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 public class AddDeadlineCommand extends Command {
     private String description;

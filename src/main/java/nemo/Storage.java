@@ -1,7 +1,5 @@
 package nemo;
 
-import nemo.task.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -10,6 +8,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import nemo.task.Deadline;
+import nemo.task.Event;
+import nemo.task.Task;
+import nemo.task.TaskList;
+import nemo.task.ToDo;
 
 public class Storage {
     private String filePath;

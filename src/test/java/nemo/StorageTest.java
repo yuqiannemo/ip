@@ -1,11 +1,14 @@
 package nemo;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
 import nemo.task.Deadline;
 import nemo.task.Event;
 import nemo.task.Task;
 import nemo.task.ToDo;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class StorageTest {
 

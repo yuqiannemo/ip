@@ -1,9 +1,9 @@
 package nemo;
 
+import java.util.Scanner;
+
 import nemo.command.Command;
 import nemo.task.TaskList;
-
-import java.util.Scanner;
 
 public class Nemo {
     private TaskList tasks;

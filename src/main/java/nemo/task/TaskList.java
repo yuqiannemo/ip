@@ -1,8 +1,8 @@
 package nemo.task;
 
-import nemo.NemoException;
-
 import java.util.ArrayList;
+
+import nemo.NemoException;
 
 public class TaskList {
     private ArrayList<Task> tasks;
