@@ -6,9 +6,19 @@ import nemo.Ui;
 import nemo.task.Task;
 import nemo.task.TaskList;
 
+/**
+ * Represents a command to delete a task from the task list.
+ */
 public class DeleteCommand extends Command {
+    /** The index of the task to be deleted. */
     private int index;
 
+    /**
+     * Constructs a new DeleteCommand.
+     *
+     * @param messageArray The user input split into an array of strings.
+     * @throws NemoException If the task number is missing or invalid.
+     */
     public DeleteCommand(String[] messageArray) throws NemoException {
         if (messageArray.length < 2) {
             throw new NemoException("Opps, please specify a task number after 'delete'.");

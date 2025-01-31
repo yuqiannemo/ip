@@ -9,10 +9,22 @@ import nemo.task.TaskList;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a command to add a deadline task to the task list.
+ */
 public class AddDeadlineCommand extends Command {
+    /** The description of the deadline task. */
     private String description;
+
+    /** The deadline. */
     private LocalDate by;
 
+    /**
+     * Constructs a new AddDeadlineCommand.
+     *
+     * @param message The user input containing the task details.
+     * @throws NemoException If the input format is invalid or the dates are in the wrong format.
+     */
     public AddDeadlineCommand(String message) throws NemoException {
         if (!message.contains("/by")) {
             throw new NemoException("Opps :( nemo.task.Deadline needs to include '/by'!");
