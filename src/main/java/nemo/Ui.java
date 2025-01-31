@@ -92,6 +92,25 @@ public class Ui {
     }
 
     /**
+     * Displays the list of tasks that match a search query.
+     *
+     * @param tasks The {@code TaskList} containing the tasks found.
+     *              If the list is empty, a message will be shown instead.
+     */
+    public void showTaskFound(TaskList tasks) {
+        System.out.println("   " + DIVIDER);
+        if (tasks.isEmpty()) {
+            System.out.println("   No tasks found, take a rest and come back later :)");
+        }
+        int count = 1;
+        for (Task task : tasks.getTasks()) {
+            System.out.println("   " + count + ". " + task.toString());
+            count++;
+        }
+        System.out.println("   " + DIVIDER);
+    }
+
+    /**
      * Displays a message confirming that a task's status has been updated.
      *
      * @param task The task whose status was updated.
