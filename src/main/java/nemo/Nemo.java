@@ -11,6 +11,7 @@ import nemo.task.TaskList;
  * Nemo is a task management application that allows users to add, delete, and manage tasks
  * such as ToDos, Deadlines, and Events. Tasks are stored in a file and can be loaded upon startup.
  */
+@SuppressWarnings("checkstyle:CommentsIndentation")
 public class Nemo {
     /** The list of tasks managed by Nemo. */
     private TaskList tasks;
@@ -63,11 +64,22 @@ public class Nemo {
         scanner.close();
     }
 
+//    /**
+//     * The entry point of the Nemo application.
+//     * Creates a new Nemo instance and starts the application.
+//     */
+//    public static void main(String[] args) {
+//        new Nemo("tasks.txt").run();
+//    }
+
+//    public static void main(String[] args) {
+//        System.out.println("Hello!");
+//    }
+
     /**
-     * The entry point of the Nemo application.
-     * Creates a new Nemo instance and starts the application.
+     * Generates a response for the user's chat message.
      */
-    public static void main(String[] args) {
-        new Nemo("tasks.txt").run();
+    public String getResponse(String input) {
+        return "Nemo heard: " + input;
     }
 }
