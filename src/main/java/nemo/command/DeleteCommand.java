@@ -31,10 +31,10 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NemoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NemoException {
         Task task = tasks.get(index);
         tasks.delete(index);
-        ui.showTaskDeleted(task, tasks.size());
         storage.save(tasks);
+        return ui.getTaskDeletedMessage(task, tasks.size());
     }
 }

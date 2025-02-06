@@ -35,51 +35,25 @@ public class Nemo {
         try {
             tasks = new TaskList(storage.load());
         } catch (NemoException e) {
-            ui.showLoadingError();
+            ui.getLoadingErrorMessage();
             tasks = new TaskList();
         }
     }
 
     /**
-     * Starts the Nemo application.
-     * Displays a welcome message and continuously reads user input until the "bye" command is entered.
-     * Parses and executes user commands, and displays appropriate feedback or error messages.
-     */
-    public void run() {
-        ui.showWelcome();
-        Scanner scanner = new Scanner(System.in);
-
-        while (scanner.hasNextLine()) {
-            String userInput = scanner.nextLine();
-            try {
-                Command command = Parser.parse(userInput);
-                command.execute(tasks, ui, storage);
-                if (command.isExit()) {
-                    break;
-                }
-            } catch (NemoException e) {
-                ui.showError(e.getMessage());
-            }
-        }
-        scanner.close();
-    }
-
-//    /**
-//     * The entry point of the Nemo application.
-//     * Creates a new Nemo instance and starts the application.
-//     */
-//    public static void main(String[] args) {
-//        new Nemo("tasks.txt").run();
-//    }
-
-//    public static void main(String[] args) {
-//        System.out.println("Hello!");
-//    }
-
-    /**
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Nemo heard: " + input;
+        String response = "";
+        try {
+            Command command = Parser.parse(input);
+            response = command.execute(tasks, ui, storage);
+            if (command.isExit()) {
+                return "az";
+            }
+        } catch (NemoException e) {
+            return ui.getErrorMessage(e.getMessage());
+        }
+        return response;
     }
 }

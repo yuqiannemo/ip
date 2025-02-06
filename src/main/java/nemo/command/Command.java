@@ -18,7 +18,7 @@ public abstract class Command {
      * @param storage The storage for saving tasks.
      * @throws NemoException If an error occurs during execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws NemoException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws NemoException;
 
     /**
      * Indicates whether the command is an exit command.

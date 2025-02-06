@@ -27,10 +27,10 @@ public class AddTodoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NemoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NemoException {
         ToDo todo = new ToDo(description);
         tasks.add(todo);
-        ui.showTaskAdded(todo, tasks.size());
         storage.save(tasks);
+        return ui.getTaskAddedMessage(todo, tasks.size());
     }
 }

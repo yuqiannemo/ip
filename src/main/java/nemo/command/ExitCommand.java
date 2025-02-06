@@ -4,10 +4,13 @@ import nemo.Storage;
 import nemo.Ui;
 import nemo.task.TaskList;
 
+/**
+ * Represents a command to exit.
+ */
 public class ExitCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showFarewell();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.getFarewellMessage();
     }
 
     /**

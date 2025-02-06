@@ -9,6 +9,9 @@ import nemo.Ui;
 import nemo.task.Event;
 import nemo.task.TaskList;
 
+/**
+ * Represents a command to add an event task to the task list.
+ */
 public class AddEventCommand extends Command {
     /** The description of the event task. */
     private String description;
@@ -32,7 +35,8 @@ public class AddEventCommand extends Command {
 
         String[] parts = message.split("/from", 2);
         if (parts.length < 2 || parts[0].trim().length() < 6) {
-            throw new NemoException("Opps :( Command needs to be 'event description /from yyyy-mm-dd /to yyyy-mm-dd' format!");
+            throw new NemoException("Opps :( Command needs to be "
+                    + "'event description /from yyyy-mm-dd /to yyyy-mm-dd' format!");
         }
 
         this.description = parts[0].substring(6).trim();
@@ -58,10 +62,10 @@ public class AddEventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NemoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NemoException {
         Event event = new Event(description, from, to);
         tasks.add(event);
-        ui.showTaskAdded(event, tasks.size());
         storage.save(tasks);
+        return ui.getTaskAddedMessage(event, tasks.size());
     }
 }

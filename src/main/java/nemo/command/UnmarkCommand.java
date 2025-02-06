@@ -31,10 +31,10 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NemoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NemoException {
         Task task = tasks.get(index);
         task.markAsUndone();
-        ui.showTaskStatusUpdated(task, false);
         storage.save(tasks);
+        return ui.getTaskStatusUpdatedMessage(task, false);
     }
 }
