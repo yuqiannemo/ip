@@ -2,6 +2,10 @@ package nemo;
 
 import java.util.Scanner;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.util.Duration;
 import nemo.command.Command;
 import nemo.task.TaskList;
 
@@ -49,7 +53,7 @@ public class Nemo {
             Command command = Parser.parse(input);
             response = command.execute(tasks, ui, storage);
             if (command.isExit()) {
-                return "az";
+                return response;
             }
         } catch (NemoException e) {
             return ui.getErrorMessage(e.getMessage());

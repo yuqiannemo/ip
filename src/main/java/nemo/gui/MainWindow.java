@@ -1,5 +1,8 @@
 package nemo.gui;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import nemo.Nemo;
 
 /**
@@ -45,6 +49,12 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = nemo.getResponse(input);
+        if (response.equals("Bye Bye, see you soon!\n")) {
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1),
+                    event -> Platform.exit()));
+            timeline.setCycleCount(1);
+            timeline.play();
+        }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getNemoDialog(response, nemoImage)
