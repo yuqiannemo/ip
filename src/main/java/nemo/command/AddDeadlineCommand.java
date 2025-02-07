@@ -13,10 +13,14 @@ import nemo.task.TaskList;
  * Represents a command to add a deadline task to the task list.
  */
 public class AddDeadlineCommand extends Command {
-    /** The description of the deadline task. */
+    /**
+     * The description of the deadline task.
+     */
     private String description;
 
-    /** The deadline. */
+    /**
+     * The deadline.
+     */
     private LocalDate by;
 
     /**

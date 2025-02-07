@@ -10,7 +10,9 @@ import nemo.task.TaskList;
  * Represents a command to mark a task as done.
  */
 public class MarkCommand extends Command {
-    /** The index of the task to be marked as done. */
+    /**
+     * The index of the task to be marked as done.
+     */
     private int index;
 
     /**

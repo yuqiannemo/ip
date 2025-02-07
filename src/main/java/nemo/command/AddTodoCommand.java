@@ -10,7 +10,9 @@ import nemo.task.ToDo;
  * Represents a command to add a todo task to the task list.
  */
 public class AddTodoCommand extends Command {
-    /** The description of the todo task. */
+    /**
+     * The description of the todo task.
+     */
     private String description;
 
     /**

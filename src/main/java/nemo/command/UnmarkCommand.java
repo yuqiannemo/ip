@@ -10,7 +10,9 @@ import nemo.task.TaskList;
  * Represents a command to mark a task as undone.
  */
 public class UnmarkCommand extends Command {
-    /** The index of the task to be marked as undone. */
+    /**
+     * The index of the task to be marked as undone.
+     */
     private int index;
 
     /**

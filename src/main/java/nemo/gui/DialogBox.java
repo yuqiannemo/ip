@@ -13,16 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import nemo.NemoException;
-import nemo.command.AddDeadlineCommand;
-import nemo.command.AddEventCommand;
-import nemo.command.AddTodoCommand;
-import nemo.command.DeleteCommand;
-import nemo.command.ExitCommand;
-import nemo.command.FindCommand;
-import nemo.command.ListCommand;
-import nemo.command.MarkCommand;
-import nemo.command.UnmarkCommand;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -59,10 +49,27 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    /**
+     * Creates and returns a user dialog box with the specified text and image.
+     * This method is used to create a dialog box for the user.
+     *
+     * @param text The text to be displayed in the dialog box.
+     * @param img The image to be displayed alongside the text.
+     * @return A DialogBox object containing the user's dialog with the specified text and image.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates and returns a Nemo dialog box with the specified text, image, and command string.
+     * This method creates a dialog box for Nemo and applies a style based on the given command.
+     *
+     * @param text The text to be displayed in the dialog box.
+     * @param img The image to be displayed alongside the text.
+     * @param commandStr The command string that influences the dialog box's style.
+     * @return A DialogBox object containing Nemo's dialog with the specified text, image, and style.
+     */
     public static DialogBox getNemoDialog(String text, Image img, String commandStr) {
         var db = new DialogBox(text, img);
         db.flip();
@@ -70,18 +77,18 @@ public class DialogBox extends HBox {
         return db;
     }
 
+    /**
+     * Changes the style of the dialog box based on the given command string.
+     * The dialog box will be styled according to the command type (e.g., BYE, MARK, DELETE, etc.).
+     *
+     * @param commandStr The command string that determines the style of the dialog box.
+     */
     private void changeDialogStyle(String commandStr) {
         switch(commandStr) {
-        case "LIST":
-            dialog.getStyleClass().add("reply-label");
-            break;
         case "BYE":
             dialog.getStyleClass().add("bye-label");
             break;
-        case "MARK":
-            dialog.getStyleClass().add("mark-label");
-            break;
-        case "UNMARK":
+        case "MARK", "UNMARK":
             dialog.getStyleClass().add("mark-label");
             break;
         case "DELETE":

@@ -15,7 +15,6 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import nemo.Nemo;
 import nemo.Ui;
-import nemo.command.Command;
 
 /**
  * Controller for the main GUI.

@@ -13,13 +13,19 @@ import nemo.task.TaskList;
  * Represents a command to add an event task to the task list.
  */
 public class AddEventCommand extends Command {
-    /** The description of the event task. */
+    /**
+     * The description of the event task.
+     */
     private String description;
 
-    /** The start date of the event. */
+    /**
+     * The start date of the event.
+     */
     private LocalDate from;
 
-    /** The end date of the event. */
+    /**
+     * The end date of the event.
+     */
     private LocalDate to;
 
     /**
