@@ -10,7 +10,9 @@ import nemo.task.TaskList;
  * Represents a command to mark a task as done.
  */
 public class MarkCommand extends Command {
-    /** The index of the task to be marked as done. */
+    /**
+     * The index of the task to be marked as done.
+     */
     private int index;
 
     /**
@@ -31,10 +33,10 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NemoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NemoException {
         Task task = tasks.get(index);
         task.markAsDone();
-        ui.showTaskStatusUpdated(task, true);
         storage.save(tasks);
+        return ui.getTaskStatusUpdatedMessage(task, true);
     }
 }

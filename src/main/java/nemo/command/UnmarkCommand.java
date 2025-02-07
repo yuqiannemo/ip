@@ -10,7 +10,9 @@ import nemo.task.TaskList;
  * Represents a command to mark a task as undone.
  */
 public class UnmarkCommand extends Command {
-    /** The index of the task to be marked as undone. */
+    /**
+     * The index of the task to be marked as undone.
+     */
     private int index;
 
     /**
@@ -31,10 +33,10 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NemoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NemoException {
         Task task = tasks.get(index);
         task.markAsUndone();
-        ui.showTaskStatusUpdated(task, false);
         storage.save(tasks);
+        return ui.getTaskStatusUpdatedMessage(task, false);
     }
 }

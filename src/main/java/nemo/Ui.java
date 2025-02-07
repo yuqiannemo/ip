@@ -5,14 +5,11 @@ import nemo.task.TaskList;
 
 /**
  * Handles user interface interactions for the Nemo application.
- * This class is responsible for displaying messages and task lists to the user.
+ * This class is responsible for generating messages and task lists as strings.
  */
 public class Ui {
-    /** A divider used to separate sections of the output. */
-    private static final String DIVIDER = "_".repeat(60);
-
     /** A greeting message displayed when the application starts. */
-    private static final String GREETING = "Hello I am Nemo \uD83D\uDC20\uD83C\uDF89, a very friendly and smart fish yay :)";
+    private static final String GREETING = "Hello I am Nemo, a very friendly and smart fish yay:)";
 
     /** A question displayed to prompt the user for input. */
     private static final String QUESTION = "What can I do for you?";
@@ -21,119 +18,90 @@ public class Ui {
     private static final String FAREWELL = "Bye Bye, see you soon!";
 
     /**
-     * Displays a welcome message to the user.
+     * Generates a welcome message.
      */
-    public void showWelcome() {
-        System.out.println("   " + DIVIDER);
-        System.out.println("   " + GREETING);
-        System.out.println("   " + QUESTION);
-        System.out.println("   " + DIVIDER);
+    public String getWelcomeMessage() {
+        return GREETING + "\n" + QUESTION + "\n";
     }
 
     /**
-     * Displays a farewell message to the user.
+     * Generates a farewell message.
      */
-    public void showFarewell() {
-        System.out.println("   " + DIVIDER);
-        System.out.println("   " + FAREWELL);
-        System.out.println("   " + DIVIDER);
+    public String getFarewellMessage() {
+        return FAREWELL + "\n";
     }
 
     /**
-     * Displays an error message to the user.
+     * Generates an error message.
      *
      * @param message The error message to be displayed.
      */
-    public void showError(String message) {
-        System.out.println("   " + DIVIDER);
-        System.out.println("   " + message);
-        System.out.println("   " + DIVIDER);
+    public String getErrorMessage(String message) {
+        return message + "\n";
     }
 
     /**
-     * Displays an error message when loading tasks fails.
+     * Generates an error message when loading tasks fails.
      */
-    public void showLoadingError() {
-        System.out.println("   " + DIVIDER);
-        System.out.println("   Error loading tasks. Starting with an empty task list.");
-        System.out.println("   " + DIVIDER);
+    public String getLoadingErrorMessage() {
+        return "Error loading tasks. Starting with an empty task list.\n";
     }
 
     /**
-     * Displays the list of tasks to the user.
+     * Generates the list of tasks as a string.
      *
      * @param tasks The list of tasks to be displayed.
      */
-    public void showTaskList(TaskList tasks) {
-        System.out.println("   " + DIVIDER);
+    public String getTaskList(TaskList tasks) {
+        StringBuilder sb = new StringBuilder("");
         if (tasks.isEmpty()) {
-            System.out.println("   No tasks now, take a rest and come back later :)");
+            sb.append("No tasks now, take a rest and come back later :)\n");
+        } else {
+            int count = 1;
+            for (Task task : tasks.getTasks()) {
+                sb.append(count++).append(". ").append(task.toString()).append("\n");
+            }
         }
-        int count = 1;
-        for (Task task : tasks.getTasks()) {
-            System.out.println("   " + count + ". " + task.toString());
-            count++;
-        }
-        System.out.println("   " + DIVIDER);
+        return sb.toString();
     }
 
     /**
-     * Displays a message confirming that a task has been added.
-     *
-     * @param task The task that was added.
-     * @param size The total number of tasks in the list after adding the new task.
+     * Generates a message confirming that a task has been added.
      */
-    public void showTaskAdded(Task task, int size) {
-        System.out.println("   " + DIVIDER);
-        System.out.println("   Got it! Task added to your list by Nemo:");
-        System.out.println("      " + task.toString());
-        System.out.println("   Now you have " + size + " tasks in your list");
-        System.out.println("   " + DIVIDER);
+    public String getTaskAddedMessage(Task task, int size) {
+        return "Got it! Task added to your list by Nemo:\n  " + task.toString()
+                + "\nNow you have " + size + " tasks in your list\n";
     }
 
     /**
-     * Displays the list of tasks that match a search query.
-     *
-     * @param tasks The {@code TaskList} containing the tasks found.
-     *              If the list is empty, a message will be shown instead.
+     * Generates a message listing the tasks found by a search query.
      */
-    public void showTaskFound(TaskList tasks) {
-        System.out.println("   " + DIVIDER);
+    public String getTaskFoundMessage(TaskList tasks) {
+        StringBuilder sb = new StringBuilder("");
         if (tasks.isEmpty()) {
-            System.out.println("   No tasks found, take a rest and come back later :)");
+            sb.append("No tasks found, take a rest and come back later :)\n");
+        } else {
+            int count = 1;
+            for (Task task : tasks.getTasks()) {
+                sb.append(count++).append(". ").append(task.toString()).append("\n");
+            }
         }
-        int count = 1;
-        for (Task task : tasks.getTasks()) {
-            System.out.println("   " + count + ". " + task.toString());
-            count++;
-        }
-        System.out.println("   " + DIVIDER);
+        return sb.toString();
     }
 
     /**
-     * Displays a message confirming that a task's status has been updated.
-     *
-     * @param task The task whose status was updated.
-     * @param isDone Whether the task was marked as done or not done.
+     * Generates a message confirming that a task's status has been updated.
      */
-    public void showTaskStatusUpdated(Task task, boolean isDone) {
-        System.out.println("   " + DIVIDER);
-        System.out.println("   Nice! I've marked this task as " + (isDone ? "done" : "not done") + ":");
-        System.out.println("      " + task.toString());
-        System.out.println("   " + DIVIDER);
+    public String getTaskStatusUpdatedMessage(Task task, boolean isDone) {
+        return "Nice! I've marked this task as " + (isDone ? "done" : "not done")
+                + ":\n  " + task.toString() + "\n";
     }
 
     /**
-     * Displays a message confirming that a task has been deleted.
-     *
-     * @param task The task that was deleted.
-     * @param size The total number of tasks in the list after deleting the task.
+     * Generates a message confirming that a task has been deleted.
      */
-    public void showTaskDeleted(Task task, int size) {
-        System.out.println("   " + DIVIDER);
-        System.out.println("   Okay! I've deleted this task for you:");
-        System.out.println("      " + task.toString());
-        System.out.println("   Now you have " + size + " tasks in your list");
-        System.out.println("   " + DIVIDER);
+    public String getTaskDeletedMessage(Task task, int size) {
+        return "Okay! I've deleted this task for you:\n  " + task.toString()
+                + "\nNow you have " + size + " tasks in your list\n";
     }
 }

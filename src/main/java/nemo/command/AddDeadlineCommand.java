@@ -13,10 +13,14 @@ import nemo.task.TaskList;
  * Represents a command to add a deadline task to the task list.
  */
 public class AddDeadlineCommand extends Command {
-    /** The description of the deadline task. */
+    /**
+     * The description of the deadline task.
+     */
     private String description;
 
-    /** The deadline. */
+    /**
+     * The deadline.
+     */
     private LocalDate by;
 
     /**
@@ -32,7 +36,8 @@ public class AddDeadlineCommand extends Command {
 
         String[] parts = message.split("/by", 2);
         if (parts.length < 2 || parts[0].trim().length() < 9) {
-            throw new NemoException("Opps :( nemo.command.Command needs to be 'deadline description /by yyyy-mm-dd' format!");
+            throw new NemoException("Opps :( nemo.command.Command needs to be "
+                    + "'deadline description /by yyyy-mm-dd' format!");
         }
 
         this.description = parts[0].substring(9).trim();
@@ -45,15 +50,16 @@ public class AddDeadlineCommand extends Command {
         try {
             this.by = LocalDate.parse(by);
         } catch (DateTimeParseException e) {
-            throw new NemoException("Opps :( nemo.task.Deadline date is in the wrong format! Use yyyy-mm-dd instead :)");
+            throw new NemoException("Opps :( nemo.task.Deadline date is"
+                    + " in the wrong format! Use yyyy-mm-dd instead :)");
         }
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NemoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NemoException {
         Deadline deadline = new Deadline(description, by);
         tasks.add(deadline);
-        ui.showTaskAdded(deadline, tasks.size());
         storage.save(tasks);
+        return ui.getTaskAddedMessage(deadline, tasks.size());
     }
 }

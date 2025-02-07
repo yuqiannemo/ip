@@ -6,6 +6,9 @@ import nemo.Ui;
 import nemo.task.Task;
 import nemo.task.TaskList;
 
+/**
+ * Represents a command to find certain tasks.
+ */
 public class FindCommand extends Command {
     private String word;
 
@@ -14,7 +17,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NemoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NemoException {
         String searchWord = word.toLowerCase();
         TaskList tasksFound = new TaskList();
         for (Task task : tasks.getTasks()) {
@@ -22,6 +25,6 @@ public class FindCommand extends Command {
                 tasksFound.add(task);
             }
         }
-        ui.showTaskFound(tasksFound);
+        return ui.getTaskFoundMessage(tasksFound);
     }
 }

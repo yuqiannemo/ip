@@ -10,7 +10,9 @@ import nemo.task.TaskList;
  * Represents a command to delete a task from the task list.
  */
 public class DeleteCommand extends Command {
-    /** The index of the task to be deleted. */
+    /**
+     * The index of the task to be deleted.
+     */
     private int index;
 
     /**
@@ -31,10 +33,10 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NemoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NemoException {
         Task task = tasks.get(index);
         tasks.delete(index);
-        ui.showTaskDeleted(task, tasks.size());
         storage.save(tasks);
+        return ui.getTaskDeletedMessage(task, tasks.size());
     }
 }

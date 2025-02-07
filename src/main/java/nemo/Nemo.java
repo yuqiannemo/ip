@@ -1,6 +1,7 @@
 package nemo;
 
-import java.util.Scanner;
+import java.util.AbstractMap;
+import java.util.Map;
 
 import nemo.command.Command;
 import nemo.task.TaskList;
@@ -11,14 +12,21 @@ import nemo.task.TaskList;
  * Nemo is a task management application that allows users to add, delete, and manage tasks
  * such as ToDos, Deadlines, and Events. Tasks are stored in a file and can be loaded upon startup.
  */
+@SuppressWarnings("checkstyle:CommentsIndentation")
 public class Nemo {
-    /** The list of tasks managed by Nemo. */
+    /**
+     * The list of tasks managed by Nemo.
+     */
     private TaskList tasks;
 
-    /** Handles user interface interactions. */
+    /**
+     * Handles user interface interactions.
+     */
     private Ui ui;
 
-    /** Manages loading and saving tasks to a file. */
+    /**
+     * Manages loading and saving tasks to a file.
+     */
     private Storage storage;
 
     /**
@@ -34,40 +42,31 @@ public class Nemo {
         try {
             tasks = new TaskList(storage.load());
         } catch (NemoException e) {
-            ui.showLoadingError();
+            ui.getLoadingErrorMessage();
             tasks = new TaskList();
         }
     }
 
     /**
-     * Starts the Nemo application.
-     * Displays a welcome message and continuously reads user input until the "bye" command is entered.
-     * Parses and executes user commands, and displays appropriate feedback or error messages.
+     * Generates a response and return the command for the user's chat message.
      */
-    public void run() {
-        ui.showWelcome();
-        Scanner scanner = new Scanner(System.in);
+    public Map.Entry<String, String> getResponse(String input) {
+        String response = "";
+        Command command;
 
-        while (scanner.hasNextLine()) {
-            String userInput = scanner.nextLine();
-            try {
-                Command command = Parser.parse(userInput);
-                command.execute(tasks, ui, storage);
-                if (command.isExit()) {
-                    break;
-                }
-            } catch (NemoException e) {
-                ui.showError(e.getMessage());
+        String[] messageArray = input.split(" ");
+        String commandStr = messageArray[0].toUpperCase();
+
+        try {
+            command = Parser.parse(input);
+            response = command.execute(tasks, ui, storage);
+            if (command.isExit()) {
+                return new AbstractMap.SimpleEntry<>(response, commandStr);
             }
+        } catch (NemoException e) {
+            response = ui.getErrorMessage(e.getMessage());
         }
-        scanner.close();
-    }
 
-    /**
-     * The entry point of the Nemo application.
-     * Creates a new Nemo instance and starts the application.
-     */
-    public static void main(String[] args) {
-        new Nemo("tasks.txt").run();
+        return new AbstractMap.SimpleEntry<>(response, commandStr);
     }
 }
