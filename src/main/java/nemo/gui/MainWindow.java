@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import nemo.Nemo;
+import nemo.Ui;
 
 /**
  * Controller for the main GUI.
@@ -39,6 +40,9 @@ public class MainWindow extends AnchorPane {
     /** Injects the Nemo instance */
     public void setNemo(Nemo d) {
         nemo = d;
+        Ui ui = new Ui();
+        String welcomeMessage = ui.getWelcomeMessage();
+        dialogContainer.getChildren().add(DialogBox.getNemoDialog(welcomeMessage, nemoImage));
     }
 
     /**

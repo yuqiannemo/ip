@@ -9,7 +9,7 @@ import nemo.task.TaskList;
  */
 public class Ui {
     /** A greeting message displayed when the application starts. */
-    private static final String GREETING = "Hello I am Nemo 🐠🎉, a very friendly and smart fish yay :)";
+    private static final String GREETING = "Hello I am Nemo, a very friendly and smart fish yay:)";
 
     /** A question displayed to prompt the user for input. */
     private static final String QUESTION = "What can I do for you?";
