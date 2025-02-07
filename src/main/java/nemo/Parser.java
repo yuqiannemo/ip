@@ -1,5 +1,7 @@
 package nemo;
 
+import java.util.Arrays;
+
 import nemo.command.AddDeadlineCommand;
 import nemo.command.AddEventCommand;
 import nemo.command.AddTodoCommand;
@@ -45,7 +47,7 @@ public class Parser {
         case "EVENT":
             return new AddEventCommand(message);
         case "FIND":
-            return new FindCommand(messageArray[1]);
+            return new FindCommand(Arrays.copyOfRange(messageArray, 1, messageArray.length));
         default:
             throw new NemoException("Unknown command: " + commandStr.toLowerCase());
         }

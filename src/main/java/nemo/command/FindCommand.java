@@ -10,18 +10,24 @@ import nemo.task.TaskList;
  * Represents a command to find certain tasks.
  */
 public class FindCommand extends Command {
-    private String word;
+    private String[] words;
 
-    public FindCommand(String word) {
-        this.word = word;
+    public FindCommand(String... words) {
+        this.words = words;
     }
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws NemoException {
-        String searchWord = word.toLowerCase();
         TaskList tasksFound = new TaskList();
         for (Task task : tasks.getTasks()) {
-            if (task.getDescription().contains(searchWord)) {
+            boolean matches = false;
+            for (String word : words) {
+                if (task.getDescription().toLowerCase().contains(word.toLowerCase())) {
+                    matches = true;
+                    break;
+                }
+            }
+            if (matches) {
                 tasksFound.add(task);
             }
         }
