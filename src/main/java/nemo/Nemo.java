@@ -1,11 +1,8 @@
 package nemo;
 
-import java.util.Scanner;
+import java.util.AbstractMap;
+import java.util.Map;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.application.Platform;
-import javafx.util.Duration;
 import nemo.command.Command;
 import nemo.task.TaskList;
 
@@ -17,13 +14,19 @@ import nemo.task.TaskList;
  */
 @SuppressWarnings("checkstyle:CommentsIndentation")
 public class Nemo {
-    /** The list of tasks managed by Nemo. */
+    /**
+     * The list of tasks managed by Nemo.
+     */
     private TaskList tasks;
 
-    /** Handles user interface interactions. */
+    /**
+     * Handles user interface interactions.
+     */
     private Ui ui;
 
-    /** Manages loading and saving tasks to a file. */
+    /**
+     * Manages loading and saving tasks to a file.
+     */
     private Storage storage;
 
     /**
@@ -45,19 +48,25 @@ public class Nemo {
     }
 
     /**
-     * Generates a response for the user's chat message.
+     * Generates a response and return the command for the user's chat message.
      */
-    public String getResponse(String input) {
+    public Map.Entry<String, String> getResponse(String input) {
         String response = "";
+        Command command;
+
+        String[] messageArray = input.split(" ");
+        String commandStr = messageArray[0].toUpperCase();
+
         try {
-            Command command = Parser.parse(input);
+            command = Parser.parse(input);
             response = command.execute(tasks, ui, storage);
             if (command.isExit()) {
-                return response;
+                return new AbstractMap.SimpleEntry<>(response, commandStr);
             }
         } catch (NemoException e) {
-            return ui.getErrorMessage(e.getMessage());
+            response = ui.getErrorMessage(e.getMessage());
         }
-        return response;
+
+        return new AbstractMap.SimpleEntry<>(response, commandStr);
     }
 }

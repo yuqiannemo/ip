@@ -10,6 +10,7 @@ import nemo.command.FindCommand;
 import nemo.command.ListCommand;
 import nemo.command.MarkCommand;
 import nemo.command.UnmarkCommand;
+import nemo.gui.DialogBox;
 
 /**
  * Parses user input into commands for the Nemo application.

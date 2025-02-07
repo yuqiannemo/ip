@@ -1,5 +1,7 @@
 package nemo.gui;
 
+import java.util.Map;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -13,6 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import nemo.Nemo;
 import nemo.Ui;
+import nemo.command.Command;
 
 /**
  * Controller for the main GUI.
@@ -42,7 +45,7 @@ public class MainWindow extends AnchorPane {
         nemo = d;
         Ui ui = new Ui();
         String welcomeMessage = ui.getWelcomeMessage();
-        dialogContainer.getChildren().add(DialogBox.getNemoDialog(welcomeMessage, nemoImage));
+        dialogContainer.getChildren().add(DialogBox.getNemoDialog(welcomeMessage, nemoImage, ""));
     }
 
     /**
@@ -52,16 +55,19 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = nemo.getResponse(input);
+        Map.Entry<String, String> result = nemo.getResponse(input);
+        String response = result.getKey();
+        String command = result.getValue();
         if (response.equals("Bye Bye, see you soon!\n")) {
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1),
                     event -> Platform.exit()));
             timeline.setCycleCount(1);
             timeline.play();
         }
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getNemoDialog(response, nemoImage)
+                DialogBox.getNemoDialog(response, nemoImage, command)
         );
         userInput.clear();
     }
