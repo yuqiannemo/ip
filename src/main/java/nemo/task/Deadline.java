@@ -3,7 +3,9 @@ package nemo.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-
+/**
+ * Represents a deadline task with a deadline date.
+ */
 public class Deadline extends Task {
     protected LocalDate by;
 
@@ -19,6 +21,10 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[D]" + super.toString() + getMmmDYyyy();
+    }
+
+    private String getMmmDYyyy() {
+        return " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }
