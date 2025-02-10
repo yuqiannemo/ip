@@ -10,6 +10,10 @@ import nemo.task.TaskList;
  * This is an abstract class that serves as the base for all specific commands.
  */
 public abstract class Command {
+    public static final String MISSING_NUMBER = "Opps, please specify a task number after";
+    public static final String INVALID_NUMBER = "Opps :( Invalid index! Maybe try to provide a valid"
+            + "number after";
+
     /**
      * Executes the command.
      *

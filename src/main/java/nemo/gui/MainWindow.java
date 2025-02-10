@@ -20,6 +20,7 @@ import nemo.Ui;
  * Controller for the main GUI.
  */
 public class MainWindow extends AnchorPane {
+    public static final String FAREWELL_MESSAGE = "Bye Bye, see you soon!\n";
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -57,7 +58,7 @@ public class MainWindow extends AnchorPane {
         Map.Entry<String, String> result = nemo.getResponse(input);
         String response = result.getKey();
         String command = result.getValue();
-        if (response.equals("Bye Bye, see you soon!\n")) {
+        if (response.equals(FAREWELL_MESSAGE)) {
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1),
                     event -> Platform.exit()));
             timeline.setCycleCount(1);
