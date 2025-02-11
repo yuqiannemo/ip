@@ -29,8 +29,10 @@ public class Parser {
         assert message != null : "Message cannot be null";
         String[] messageArray = message.split(" ");
         assert messageArray.length > 0 : "messageArray should have at least one element";
-        String commandStr = messageArray[0].toUpperCase();
-        assert !commandStr.isEmpty() : "Command should not be an empty string";
+        String commandStr = Arrays.stream(message.split(" "))
+                .findFirst()
+                .map(String::toUpperCase)
+                .orElseThrow(() -> new NemoException("Invalid command"));
 
 
         switch (commandStr) {
@@ -51,8 +53,9 @@ public class Parser {
         case "EVENT":
             return new AddEventCommand(message);
         case "FIND":
-            assert messageArray.length > 1 : "FIND command requires at least one keyword";
-            return new FindCommand(Arrays.copyOfRange(messageArray, 1, messageArray.length));
+            return new FindCommand(
+                    Arrays.stream(messageArray).skip(1).toArray(String[]::new)
+            );
         default:
             throw new NemoException("Unknown command: " + commandStr.toLowerCase());
         }
