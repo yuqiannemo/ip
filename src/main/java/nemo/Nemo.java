@@ -12,7 +12,6 @@ import nemo.task.TaskList;
  * Nemo is a task management application that allows users to add, delete, and manage tasks
  * such as ToDos, Deadlines, and Events. Tasks are stored in a file and can be loaded upon startup.
  */
-@SuppressWarnings("checkstyle:CommentsIndentation")
 public class Nemo {
     /**
      * The list of tasks managed by Nemo.

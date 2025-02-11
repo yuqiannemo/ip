@@ -43,18 +43,14 @@ public class Storage {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
 
-        if (!file.exists()) {
-            try {
-                if (file.createNewFile()) {
-                    System.out.println("Successfully created task file: " + file.getPath());
-                } else {
-                    System.out.println("Failed to create task file.");
-                }
-            } catch (IOException e) {
-                throw new NemoException("Error creating task file: " + e.getMessage());
-            }
-        }
+        createTaskFile(file);
 
+        loadTasks(file, tasks);
+
+        return tasks;
+    }
+
+    private void loadTasks(File file, ArrayList<Task> tasks) throws NemoException {
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -66,8 +62,20 @@ public class Storage {
         } catch (FileNotFoundException e) {
             throw new NemoException("Error loading tasks: " + e.getMessage());
         }
+    }
 
-        return tasks;
+    private static void createTaskFile(File file) throws NemoException {
+        if (!file.exists()) {
+            try {
+                if (file.createNewFile()) {
+                    System.out.println("Successfully created task file: " + file.getPath());
+                } else {
+                    System.out.println("Failed to create task file.");
+                }
+            } catch (IOException e) {
+                throw new NemoException("Error creating task file: " + e.getMessage());
+            }
+        }
     }
 
     /**
@@ -94,6 +102,16 @@ public class Storage {
         String taskContent = line.substring(statusEnd + 2).trim();
 
         Task task = null;
+        task = getTask(line, task, taskContent);
+
+        if (task != null && isDone) {
+            task.markAsDone();
+        }
+
+        return task;
+    }
+
+    private static Task getTask(String line, Task task, String taskContent) {
         if (line.startsWith("[T]")) {
             task = new ToDo(taskContent);
         } else if (line.startsWith("[E]")) {
@@ -118,11 +136,6 @@ public class Storage {
                 task = new Deadline(description, date);
             }
         }
-
-        if (task != null && isDone) {
-            task.markAsDone();
-        }
-
         return task;
     }
 

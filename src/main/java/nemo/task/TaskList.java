@@ -8,6 +8,7 @@ import nemo.NemoException;
  * Manages a list of tasks.
  */
 public class TaskList {
+    public static final String DOES_NOT_EXIST_IN_THE_LIST = " does not exist in the list...";
     private ArrayList<Task> tasks;
 
     /**
@@ -53,7 +54,7 @@ public class TaskList {
      */
     public void delete(int index) throws NemoException {
         if (index < 0 || index >= tasks.size()) {
-            throw new NemoException("Task number " + (index + 1) + " does not exist in the list...");
+            throw new NemoException("Task number " + (index + 1) + DOES_NOT_EXIST_IN_THE_LIST);
         }
         tasks.remove(index);
     }
@@ -66,7 +67,7 @@ public class TaskList {
      */
     public Task get(int index) throws NemoException {
         if (index < 0 || index >= tasks.size()) {
-            throw new NemoException("Task number " + (index + 1) + " does not exist in the list...");
+            throw new NemoException("Task number " + (index + 1) + DOES_NOT_EXIST_IN_THE_LIST);
         }
         return tasks.get(index);
     }

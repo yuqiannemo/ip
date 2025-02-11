@@ -23,12 +23,12 @@ public class MarkCommand extends Command {
      */
     public MarkCommand(String[] messageArray) throws NemoException {
         if (messageArray.length < 2) {
-            throw new NemoException("Opps, please specify a task number after 'mark'.");
+            throw new NemoException(MISSING_NUMBER + "'mark'.");
         }
         try {
             this.index = Integer.parseInt(messageArray[1]) - 1;
         } catch (NumberFormatException e) {
-            throw new NemoException("Opps :( Invalid index! Maybe try to provide a valid number after 'mark'?");
+            throw new NemoException(INVALID_NUMBER + "'mark'?");
         }
     }
 

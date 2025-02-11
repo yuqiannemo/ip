@@ -10,6 +10,7 @@ import nemo.task.ToDo;
  * Represents a command to add a todo task to the task list.
  */
 public class AddTodoCommand extends Command {
+    public static final String CANNOT_BE_EMPTY = "Opps :( Todo cannot be empty!";
     /**
      * The description of the todo task.
      */
@@ -24,7 +25,7 @@ public class AddTodoCommand extends Command {
     public AddTodoCommand(String message) throws NemoException {
         this.description = message.substring(4).trim();
         if (description.isEmpty()) {
-            throw new NemoException("Opps :( Todo cannot be empty!");
+            throw new NemoException(CANNOT_BE_EMPTY);
         }
     }
 

@@ -13,6 +13,15 @@ import nemo.task.TaskList;
  * Represents a command to add an event task to the task list.
  */
 public class AddEventCommand extends Command {
+    public static final String NEEDS_TO_INCLUDE_FROM_AND_TO = "Opps :( Event needs to include '/from' and '/to'!";
+    public static final String COMMAND_IN_WRONG_FORMAT = "Opps :( Command needs to be "
+            + "'event description /from yyyy-mm-dd /to yyyy-mm-dd' format!";
+    public static final String NEEDS_TO_HAVE_FROM_AND_TO_DATES = "Opps :( Event needs to "
+            + "have both '/from' and '/to' dates!";
+    public static final String FIELDS_CANNOT_BE_EMPTY = "Opps :( Event description, "
+            + "from, or to date cannot be empty!";
+    public static final String DATE_IN_WRONG_FORMAT = "Opps :( Event date is in the wrong format! "
+            + "Use yyyy-mm-dd instead :)";
     /**
      * The description of the event task.
      */
@@ -36,34 +45,33 @@ public class AddEventCommand extends Command {
      */
     public AddEventCommand(String message) throws NemoException {
         if (!message.contains("/from") || !message.contains("/to")) {
-            throw new NemoException("Opps :( Event needs to include '/from' and '/to'!");
+            throw new NemoException(NEEDS_TO_INCLUDE_FROM_AND_TO);
         }
 
         String[] parts = message.split("/from", 2);
         if (parts.length < 2 || parts[0].trim().length() < 6) {
-            throw new NemoException("Opps :( Command needs to be "
-                    + "'event description /from yyyy-mm-dd /to yyyy-mm-dd' format!");
+            throw new NemoException(COMMAND_IN_WRONG_FORMAT);
         }
 
         this.description = parts[0].substring(6).trim();
         String[] dateParts = parts[1].split("/to", 2);
 
         if (dateParts.length < 2) {
-            throw new NemoException("Opps :( Event needs to have both '/from' and '/to' dates!");
+            throw new NemoException(NEEDS_TO_HAVE_FROM_AND_TO_DATES);
         }
 
         String from = dateParts[0].trim();
         String to = dateParts[1].trim();
 
         if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
-            throw new NemoException("Opps :( Event description, from, or to date cannot be empty!");
+            throw new NemoException(FIELDS_CANNOT_BE_EMPTY);
         }
 
         try {
             this.from = LocalDate.parse(from);
             this.to = LocalDate.parse(to);
         } catch (DateTimeParseException e) {
-            throw new NemoException("Opps :( Event date is in the wrong format! Use yyyy-mm-dd instead :)");
+            throw new NemoException(DATE_IN_WRONG_FORMAT);
         }
     }
 
