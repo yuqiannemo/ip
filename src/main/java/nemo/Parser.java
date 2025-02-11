@@ -27,7 +27,11 @@ public class Parser {
      */
     public static Command parse(String message) throws NemoException {
         String[] messageArray = message.split(" ");
-        String commandStr = messageArray[0].toUpperCase();
+        String commandStr = Arrays.stream(message.split(" "))
+                .findFirst()
+                .map(String::toUpperCase)
+                .orElseThrow(() -> new NemoException("Invalid command"));
+
 
         switch (commandStr) {
         case "LIST":
@@ -47,7 +51,9 @@ public class Parser {
         case "EVENT":
             return new AddEventCommand(message);
         case "FIND":
-            return new FindCommand(Arrays.copyOfRange(messageArray, 1, messageArray.length));
+            return new FindCommand(
+                    Arrays.stream(messageArray).skip(1).toArray(String[]::new)
+            );
         default:
             throw new NemoException("Unknown command: " + commandStr.toLowerCase());
         }
