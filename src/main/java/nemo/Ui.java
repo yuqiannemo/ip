@@ -53,7 +53,7 @@ public class Ui {
      * @param tasks The list of tasks to be displayed.
      */
     public String getTaskList(TaskList tasks) {
-        StringBuilder sb = new StringBuilder("");
+        StringBuilder sb = new StringBuilder();
         if (tasks.isEmpty()) {
             sb.append("No tasks now, take a rest and come back later :)\n");
         } else {
@@ -77,7 +77,7 @@ public class Ui {
      * Generates a message listing the tasks found by a search query.
      */
     public String getTaskFoundMessage(TaskList tasks) {
-        StringBuilder sb = new StringBuilder("");
+        StringBuilder sb = new StringBuilder();
         if (tasks.isEmpty()) {
             sb.append("No tasks found, take a rest and come back later :)\n");
         } else {

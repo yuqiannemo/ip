@@ -55,6 +55,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         Map.Entry<String, String> result = nemo.getResponse(input);
+        assert result != null : "User input should not be null";
         String response = result.getKey();
         String command = result.getValue();
         if (response.equals("Bye Bye, see you soon!\n")) {

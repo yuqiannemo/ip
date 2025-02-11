@@ -26,7 +26,9 @@ public class Parser {
      * @throws NemoException If the user input does not match any known command.
      */
     public static Command parse(String message) throws NemoException {
+        assert message != null : "Message cannot be null";
         String[] messageArray = message.split(" ");
+        assert messageArray.length > 0 : "messageArray should have at least one element";
         String commandStr = Arrays.stream(message.split(" "))
                 .findFirst()
                 .map(String::toUpperCase)

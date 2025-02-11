@@ -51,6 +51,7 @@ public class Nemo {
      * Generates a response and return the command for the user's chat message.
      */
     public Map.Entry<String, String> getResponse(String input) {
+        assert input != null : "input should not be null";
         String response = "";
         Command command;
 
