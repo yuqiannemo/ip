@@ -146,6 +146,7 @@ public class Storage {
      * @throws NemoException If an error occurs while saving tasks.
      */
     public void save(TaskList tasks) throws NemoException {
+        assert tasks != null : "Task list must not be null";
         try (FileWriter writer = new FileWriter(filePath)) {
             for (Task task : tasks.getTasks()) {
                 writer.write(task.toString() + "\n");

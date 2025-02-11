@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a deadline task with a deadline date.
+ * Represents a deadline task with deadline date.
  */
 public class Deadline extends Task {
     protected LocalDate by;
