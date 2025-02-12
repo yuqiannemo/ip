@@ -1,6 +1,7 @@
 package nemo.task;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -32,5 +33,10 @@ public class Event extends Task {
     private String getTimePeriod() {
         return " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
                 + " to: " + to.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+    }
+
+    @Override
+    public boolean isDueSoon() {
+        return this.status == TaskStatus.NOT_DONE && LocalDateTime.now().plusDays(1).isAfter(from.atStartOfDay());
     }
 }

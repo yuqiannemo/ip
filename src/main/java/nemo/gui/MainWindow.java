@@ -60,6 +60,7 @@ public class MainWindow extends AnchorPane {
         String response = result.getKey();
         String command = result.getValue();
         if (response.equals(FAREWELL_MESSAGE)) {
+            ReminderScheduler.stopScheduler();
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1),
                     event -> Platform.exit()));
             timeline.setCycleCount(1);
