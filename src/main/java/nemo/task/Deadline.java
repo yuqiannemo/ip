@@ -1,6 +1,7 @@
 package nemo.task;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -26,5 +27,10 @@ public class Deadline extends Task {
 
     private String getMmmDYyyy() {
         return " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+    }
+
+    @Override
+    public boolean isDueSoon() {
+        return this.status == TaskStatus.NOT_DONE && LocalDateTime.now().plusDays(1).isAfter(by.atStartOfDay());
     }
 }
