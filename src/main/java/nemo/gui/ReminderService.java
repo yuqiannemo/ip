@@ -1,6 +1,8 @@
 package nemo.gui;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
@@ -14,6 +16,7 @@ import nemo.task.Task;
  * Service to handle task reminders and show alerts when a task is due soon.
  */
 public class ReminderService {
+    private final Set<Task> remindedTasks = new HashSet<>();
     /**
      * Checks if any tasks are due soon and triggers reminders.
      *
@@ -21,7 +24,7 @@ public class ReminderService {
      */
     public void checkReminders(ArrayList<Task> tasks) {
         for (Task task : tasks) {
-            if (task.isDueSoon()) {
+            if (task.isDueSoon() && !remindedTasks.contains(task)) {
                 showReminder(task);
             }
         }
@@ -45,5 +48,14 @@ public class ReminderService {
             alert.getButtonTypes().setAll(ButtonType.OK);
             alert.showAndWait();
         });
+    }
+
+    /**
+     * Clears reminders for completed or expired tasks.
+     *
+     * @param task The task that should be removed from the reminder list.
+     */
+    public void clearReminder(Task task) {
+        remindedTasks.remove(task);
     }
 }
