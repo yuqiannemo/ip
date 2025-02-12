@@ -26,6 +26,10 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setNemo(nemo);
+            stage.setTitle("Nemo");
+            stage.setOnCloseRequest(event -> {
+                ReminderScheduler.stopScheduler(); // 关闭 scheduler
+            });
             stage.show();
             ReminderScheduler.startScheduler();
         } catch (IOException e) {
