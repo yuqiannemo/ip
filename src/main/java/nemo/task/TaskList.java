@@ -20,6 +20,7 @@ public class TaskList {
 
     /**
      * Constructs a TaskList with existing tasks.
+     *
      * @param tasks The list of tasks.
      */
     public TaskList(ArrayList<Task> tasks) {
@@ -33,6 +34,7 @@ public class TaskList {
 
     /**
      * Checks if the task list is empty.
+     *
      * @return True if the task list is empty, false otherwise.
      */
     public boolean isEmpty() {
@@ -41,6 +43,7 @@ public class TaskList {
 
     /**
      * Adds a task to the list.
+     *
      * @param task The task to add.
      */
     public void add(Task task) {
@@ -49,6 +52,7 @@ public class TaskList {
 
     /**
      * Deletes a task from the list by index.
+     *
      * @param index The index of the task to delete.
      * @throws NemoException If the index is out of bounds.
      */
@@ -61,6 +65,7 @@ public class TaskList {
 
     /**
      * Retrieves a task from the list by index.
+     *
      * @param index The index of the task.
      * @return The task at the given index.
      * @throws NemoException If the index is out of bounds.
@@ -74,6 +79,7 @@ public class TaskList {
 
     /**
      * Returns the number of tasks in the list.
+     *
      * @return The size of the task list.
      */
     public int size() {

@@ -54,7 +54,7 @@ public class DialogBox extends HBox {
      * This method is used to create a dialog box for the user.
      *
      * @param text The text to be displayed in the dialog box.
-     * @param img The image to be displayed alongside the text.
+     * @param img  The image to be displayed alongside the text.
      * @return A DialogBox object containing the user's dialog with the specified text and image.
      */
     public static DialogBox getUserDialog(String text, Image img) {
@@ -65,8 +65,8 @@ public class DialogBox extends HBox {
      * Creates and returns a Nemo dialog box with the specified text, image, and command string.
      * This method creates a dialog box for Nemo and applies a style based on the given command.
      *
-     * @param text The text to be displayed in the dialog box.
-     * @param img The image to be displayed alongside the text.
+     * @param text       The text to be displayed in the dialog box.
+     * @param img        The image to be displayed alongside the text.
      * @param commandStr The command string that influences the dialog box's style.
      * @return A DialogBox object containing Nemo's dialog with the specified text, image, and style.
      */
@@ -84,7 +84,7 @@ public class DialogBox extends HBox {
      * @param commandStr The command string that determines the style of the dialog box.
      */
     private void changeDialogStyle(String commandStr) {
-        switch(commandStr) {
+        switch (commandStr) {
         case "BYE":
             dialog.getStyleClass().add("bye-label");
             break;

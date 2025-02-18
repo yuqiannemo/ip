@@ -8,13 +8,19 @@ import nemo.task.TaskList;
  * This class is responsible for generating messages and task lists as strings.
  */
 public class Ui {
-    /** A greeting message displayed when the application starts. */
+    /**
+     * A greeting message displayed when the application starts.
+     */
     private static final String GREETING = "Hello I am Nemo, a very friendly and smart fish yay:)";
 
-    /** A question displayed to prompt the user for input. */
+    /**
+     * A question displayed to prompt the user for input.
+     */
     private static final String QUESTION = "What can I do for you?";
 
-    /** A farewell message displayed when the application exits. */
+    /**
+     * A farewell message displayed when the application exits.
+     */
     private static final String FAREWELL = "Bye Bye, see you soon!";
 
     /**

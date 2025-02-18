@@ -20,7 +20,9 @@ import nemo.task.ToDo;
  * This class handles reading tasks from a file and writing tasks back to the file.
  */
 public class Storage {
-    /** The file path where tasks are stored. */
+    /**
+     * The file path where tasks are stored.
+     */
     private String filePath;
 
     /**

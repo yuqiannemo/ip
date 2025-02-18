@@ -16,6 +16,7 @@ public class Task {
 
     /**
      * Constructs a new Task with the given description.
+     *
      * @param description The task description.
      */
     public Task(String description) {
@@ -29,6 +30,7 @@ public class Task {
 
     /**
      * Returns the status icon of the task.
+     *
      * @return "[X]" if the task is done, otherwise "[ ]".
      */
     public String getStatusIcon() {

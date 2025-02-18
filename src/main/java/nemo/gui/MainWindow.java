@@ -40,7 +40,9 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Nemo instance */
+    /**
+     * Injects the Nemo instance
+     */
     public void setNemo(Nemo d) {
         nemo = d;
         Ui ui = new Ui();

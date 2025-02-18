@@ -17,6 +17,7 @@ import nemo.task.Task;
  */
 public class ReminderService {
     private final Set<Task> remindedTasks = new HashSet<>();
+
     /**
      * Checks if any tasks are due soon and triggers reminders.
      *

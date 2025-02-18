@@ -14,9 +14,10 @@ public class Event extends Task {
 
     /**
      * Constructs a new Event task.
+     *
      * @param description The event description.
-     * @param from The start date of the event.
-     * @param to The end date of the event.
+     * @param from        The start date of the event.
+     * @param to          The end date of the event.
      */
     public Event(String description, LocalDate from, LocalDate to) {
         super(description);
