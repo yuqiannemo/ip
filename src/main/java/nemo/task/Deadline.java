@@ -31,6 +31,7 @@ public class Deadline extends Task {
 
     @Override
     public boolean isDueSoon() {
-        return this.status == TaskStatus.NOT_DONE && LocalDateTime.now().plusDays(1).isAfter(by.atStartOfDay());
+        return this.status == TaskStatus.NOT_DONE && LocalDateTime.now().plusDays(1).isAfter(by.atStartOfDay())
+                && LocalDateTime.now().isBefore(by.atStartOfDay());
     }
 }

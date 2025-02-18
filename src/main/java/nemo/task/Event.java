@@ -37,6 +37,7 @@ public class Event extends Task {
 
     @Override
     public boolean isDueSoon() {
-        return this.status == TaskStatus.NOT_DONE && LocalDateTime.now().plusDays(1).isAfter(from.atStartOfDay());
+        return this.status == TaskStatus.NOT_DONE && LocalDateTime.now().plusDays(1).isAfter(from.atStartOfDay())
+                && LocalDateTime.now().isBefore(from.atStartOfDay());
     }
 }
