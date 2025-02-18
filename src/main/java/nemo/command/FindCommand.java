@@ -20,14 +20,14 @@ public class FindCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws NemoException {
         TaskList tasksFound = new TaskList();
         for (Task task : tasks.getTasks()) {
-            boolean matches = false;
+            boolean isMatch = false;
             for (String word : words) {
                 if (task.getDescription().toLowerCase().contains(word.toLowerCase())) {
-                    matches = true;
+                    isMatch = true;
                     break;
                 }
             }
-            if (matches) {
+            if (isMatch) {
                 tasksFound.add(task);
             }
         }
