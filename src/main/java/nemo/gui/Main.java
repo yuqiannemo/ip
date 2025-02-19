@@ -28,7 +28,7 @@ public class Main extends Application {
             fxmlLoader.<MainWindow>getController().setNemo(nemo);
             stage.setTitle("Nemo");
             stage.setOnCloseRequest(event -> {
-                ReminderScheduler.stopScheduler(); // 关闭 scheduler
+                ReminderScheduler.stopScheduler();
             });
             stage.show();
             ReminderScheduler.startScheduler();
